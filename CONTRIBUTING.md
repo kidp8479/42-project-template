@@ -1,0 +1,81 @@
+# Contributing
+
+Working notes for how this project is built day to day.
+
+<!-- TODO: replace <PREFIX> below with this project's Linear team prefix (e.g. HYP). -->
+
+## Workflow: one issue, one branch, one PR
+
+Work is tracked in Linear. Each unit of work is an issue; each issue gets
+its own branch (Linear suggests a branch name per issue) and its own pull
+request. A GitHub↔Linear integration moves the issue's status
+automatically: opening a branch/PR moves it to *In Progress*, merging moves
+it to *Done*.
+
+Drop a short comment on the Linear issue when there's meaningful progress
+to log (not just at the end) - it keeps the issue's history useful instead
+of a single "done" at the finish line.
+
+### Keeping branches up to date
+
+If `main` has moved forward while a feature branch is in progress, rebase
+the feature branch onto `main` before opening (or before merging) the PR -
+don't merge `main` into the feature branch. Merge commits are reserved for
+the single moment a PR actually merges into `main`; everything before that
+stays a clean, rebased line of commits.
+
+## Commits
+
+Commits are atomic: one logical change per commit, not a pile of unrelated
+edits squashed together. Commit messages follow `type: summary` -
+`feat`, `fix`, `chore`, `docs`, `ci` - with a short body explaining *why*
+when it's not obvious from the diff alone.
+
+Every commit tied to a Linear issue includes the issue key:
+`type(<PREFIX>-N): summary` (e.g. `feat(<PREFIX>-9): add X`). This is on
+top of the branch-name-based link Linear already infers - it reinforces
+the link and helps the status auto-transition on merge.
+
+Small, focused commits make `git log` and `git blame` actually useful
+later.
+
+## Before committing
+
+```sh
+make format
+make lint
+```
+
+Both should be wired into the shared VSCode workspace config
+(`.vscode/settings.json`) to run automatically on save, so in practice this
+is mostly a safety net rather than a manual step.
+
+A git pre-commit hook (`.githooks/pre-commit`, enabled via `make install`)
+runs `make format-check` and `make lint-check` before every commit and
+blocks it if either fails - fix with `make format` / `make lint` and
+re-commit. The same checks should run in CI (`.github/workflows/ci.yml`)
+on every push and pull request, alongside a secret scan
+(`.github/workflows/gitleaks.yml`).
+
+## Tools in use
+
+- **Linear** - issue tracking, milestones, priorities. Labels group issues
+  by technical domain.
+- **GitHub** - source of truth for code, pull requests, code review.
+- **Slack** - day-to-day communication. A daily-log channel is used as a
+  running journal (what got done/blocked each day) to keep context between
+  work sessions. Native Slack integrations post GitHub activity and Linear
+  status changes into dedicated channels.
+
+## Security baseline
+
+<!-- TODO: fill in with this project's actual eliminatory/non-negotiable
+     rules from the subject + marking sheet. -->
+
+- No plaintext passwords in the database.
+- No SQL injection surface - always use parameterized queries / the ORM.
+- No HTML/JS injection - sanitize/escape anything rendered from user input.
+- Validate every form and file upload, both client- and server-side.
+- `.env` is git-ignored; never commit a real secret. Use `.env.example`
+  for documenting required variables with placeholder values.
+- Zero console errors/warnings - browser or server - at defense time.
