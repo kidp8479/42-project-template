@@ -29,8 +29,12 @@ Then, in order:
 ## What's in here
 
 - `.gitignore` - consolidated, single root file
-- `Makefile` - `install`/`up`/`down`/`ps`/`logs`/`format`/`lint`/`test`/`build`,
-  with Docker/Podman compose auto-detection
+- `Makefile` - setup, local dev, container lifecycle (`up`/`down`/`re`),
+  logs, in-container helpers (`sh-backend`/`be CMD="..."`/`psql`),
+  cleanup (`clean`/`fclean`/`wipe-db`), and code quality
+  (`format`/`lint`/`typecheck`/`test`/`build`/`doc`) - Docker/Podman
+  compose auto-detected, targets grouped into labeled sections
+  (`make help`)
 - `.githooks/pre-commit` - blocks commits that aren't formatted/linted
   (enable with `git config core.hooksPath .githooks`, done by `make install`)
 - `.github/workflows/ci.yml` - lint/format/test/build skeleton (Node/npm,

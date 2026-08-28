@@ -57,6 +57,52 @@ re-commit. The same checks should run in CI (`.github/workflows/ci.yml`)
 on every push and pull request, alongside a secret scan
 (`.github/workflows/gitleaks.yml`).
 
+## Docker/Podman: dev containers and rootless Podman
+
+<!-- TODO: this section only applies once docker-compose.yml + Dockerfiles
+     exist. Delete if the project doesn't use containers. -->
+
+Dev containers should run as the image's non-root "node" user (or
+equivalent), not root - otherwise anything the container writes into the
+bind-mounted source (build output, lockfiles...) becomes root-owned on
+the host and unreadable/undeletable without sudo.
+
+This behaves differently across runtimes: on **Docker**, the container
+user maps to the host user, so a bind-mounted source directory stays
+writable. On **rootless Podman** (a common school-lab setup), the host
+user instead maps to *container root* - so the non-root "node" user can
+no longer write into a bind-mounted `/app` at all, and a build step like
+`nest start --watch` fails with `EACCES`.
+
+**The fix, portable across both**: never let the container write
+directly onto a bind mount. Put anything it generates (build output,
+`node_modules`, lockfiles/tsbuildinfo) into a **named volume** instead -
+both runtimes chown named volumes to the image's user, unlike bind
+mounts.
+
+```yaml
+volumes:
+  - ./backend:/app
+  - backend_node_modules:/app/node_modules
+  - backend_dist:/app/dist   # not just node_modules - anything written
+# ...
+volumes:
+  backend_node_modules:
+  backend_dist:
+```
+
+If the build tool deletes its output directory before regenerating it
+(e.g. Nest's `deleteOutDir`), turn that off once the output dir is a
+mount point - `rmdir` fails on a mount point, only the container's own
+process can write inside it, not remove it.
+
+Also watch out for tool configs living outside the bind-mounted
+directory (e.g. a root-level `.prettierrc` for a `backend/` service) -
+running that tool *inside* the container won't find the config. Run
+formatting/linting/typechecking host-side instead (`make format` /
+`make lint` / `make typecheck`), which is what the pre-commit hook does
+anyway.
+
 ## Tools in use
 
 - **Linear** - issue tracking, milestones, priorities. Labels group issues
