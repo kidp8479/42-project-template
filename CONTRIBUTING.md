@@ -64,7 +64,7 @@ Even working solo:
 - Re-read the full diff before merging (`/code-review`). Never push straight
   to `main`.
 - CI must be green before merge: format, lint, typecheck, test, build, and
-  the secret scan. **Never bypass** the pre-commit hook or CI — `--no-verify`
+  the secret scan. **Never bypass** the pre-commit hook or CI - `--no-verify`
   is off-limits unless explicitly decided.
 - Each new unit of behaviour (endpoint, service, script, manifest) ships
   with at least one test before it merges. Auth flows
@@ -84,7 +84,7 @@ a durable record.
 - Public surface (exported classes/methods, HTTP routes, externally-invoked
   scripts) gets a doc comment; obvious private code does not.
 - Everything written into the repo is in English (see `~/42/WIP/CLAUDE.md`),
-  inline comments included — check none slipped through in another language
+  inline comments included - check none slipped through in another language
   before merging.
 
 ## Docker/Podman: dev containers and rootless Podman
@@ -155,14 +155,14 @@ anyway.
 
 ### Generic web checklist
 
-Mirrors the `web-security-review` skill (`~/.claude/skills/`) — run that
+Mirrors the `web-security-review` skill (`~/.claude/skills/`) - run that
 skill before merging anything touching auth or user data. Summary:
 
 - **Passwords/tokens**: argon2id hashing; reset/verification tokens are
   CSPRNG-generated, single-use, short-lived, and **hashed at rest**.
 - **Authorization**: every mutating route on a user resource checks auth
   **and** ownership → `403` otherwise, never a silent pass. CRUD scaffolds
-  ship with no guards — lock every generated route before merge. Never
+  ship with no guards - lock every generated route before merge. Never
   trust a client-supplied role or ID for an authz decision. No IDOR.
 - **Enumeration / brute-force**: login / register / reset return identical
   responses (text and timing); auth endpoints are rate-limited.
