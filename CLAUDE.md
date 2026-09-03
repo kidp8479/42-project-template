@@ -1,8 +1,14 @@
-# <PROJECT NAME> — 42 post-tronc-commun
+# <PROJECT NAME> - 42 post-tronc-commun
 
 <!-- Fill in as you scope the project. See Hypertube's CLAUDE.md for a
      worked example, and ~/42/WIP/CLAUDE.md for conventions shared across
-     all projects (language, commit format, workflow). -->
+     all projects (language, commit format, workflow, engineering
+     standards).
+
+     This file holds ONLY subject-specific context: stack, eliminatory
+     constraints, imposed structure, open questions. Project-agnostic
+     rules (review gate, ADRs, code clarity, generic web security) are in
+     ~/42/WIP/CLAUDE.md and CONTRIBUTING.md - don't duplicate them here. -->
 
 ## Context
 

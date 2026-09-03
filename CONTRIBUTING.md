@@ -57,6 +57,45 @@ re-commit. The same checks should run in CI (`.github/workflows/ci.yml`)
 on every push and pull request, alongside a secret scan
 (`.github/workflows/gitleaks.yml`).
 
+## Planning and lessons
+
+- For any non-trivial task (3+ steps, or an architectural choice), agree a
+  plan before touching code (`/plan` or plan mode). If the work goes
+  sideways mid-task, stop and re-plan rather than pushing on.
+- After a course correction, write the lesson down so it isn't repeated: a
+  `feedback` memory for a habit that spans projects, `docs/lessons.md` in
+  this repo for a project-specific one.
+
+## Review & merge gate
+
+Even working solo:
+
+- Re-read the full diff before merging (`/code-review`). Never push straight
+  to `main`.
+- CI must be green before merge: format, lint, typecheck, test, build, and
+  the secret scan. **Never bypass** the pre-commit hook or CI - `--no-verify`
+  is off-limits unless explicitly decided.
+- Each new unit of behaviour (endpoint, service, script, manifest) ships
+  with at least one test before it merges. Auth flows
+  (register/login/reset/logout) also get an e2e test.
+
+## Decisions (ADRs)
+
+Record a structural decision (auth strategy, hashing algorithm, transport,
+data model choice...) as a short ADR under `docs/adr/NNNN-title.md`:
+context / decision / consequences. A commit message or a chat thread is not
+a durable record.
+
+## Code clarity
+
+- Comment the *why*, not the *what*. A comment that restates the identifier
+  name earns nothing.
+- Public surface (exported classes/methods, HTTP routes, externally-invoked
+  scripts) gets a doc comment; obvious private code does not.
+- Everything written into the repo is in English (see `~/42/WIP/CLAUDE.md`),
+  inline comments included - check none slipped through in another language
+  before merging.
+
 ## Docker/Podman: dev containers and rootless Podman
 
 <!-- TODO: this section only applies once docker-compose.yml + Dockerfiles
@@ -115,13 +154,37 @@ anyway.
 
 ## Security baseline
 
-<!-- TODO: fill in with this project's actual eliminatory/non-negotiable
-     rules from the subject + marking sheet. -->
+### Project-specific (fill in)
 
-- No plaintext passwords in the database.
-- No SQL injection surface - always use parameterized queries / the ORM.
-- No HTML/JS injection - sanitize/escape anything rendered from user input.
-- Validate every form and file upload, both client- and server-side.
-- `.env` is git-ignored; never commit a real secret. Use `.env.example`
-  for documenting required variables with placeholder values.
+<!-- TODO: copy this project's eliminatory / non-negotiable rules from the
+     subject + marking sheet. Read both in full; where they diverge, apply
+     the stricter one. -->
+
 - Zero console errors/warnings - browser or server - at defense time.
+
+### Generic web checklist
+
+Run the `web-security-review` skill (`~/.claude/skills/`) before merging
+anything touching auth or user data. The skill is the source of truth;
+the list below is a summary to keep in sync with it, not a replacement:
+
+- **Passwords/tokens**: argon2id hashing; reset/verification tokens are
+  CSPRNG-generated, single-use, short-lived, and **hashed at rest**.
+- **Authorization**: every mutating route on a user resource checks auth
+  **and** ownership, returning `403` otherwise, never a silent pass. CRUD scaffolds
+  ship with no guards - lock every generated route before merge. Never
+  trust a client-supplied role or ID for an authz decision. No IDOR.
+- **Enumeration / brute-force**: login / register / reset return identical
+  responses (text and timing); auth endpoints are rate-limited.
+- **Input validation**: strict server-side validation, field whitelist,
+  unknown fields rejected. Uploads: MIME checked, size-capped, name
+  sanitized, stored outside the webroot.
+- **Injection**: parameterized queries / ORM only; output escaped by
+  default; security headers set (CSP, `X-Content-Type-Options`, frame
+  options).
+- **Session/transport**: session cookies `HttpOnly` + `Secure` +
+  `SameSite`; CORS restricted to the expected origin; logout invalidates
+  server-side.
+- **Secrets**: `.env` only (git-ignored), `.env.example` kept current,
+  `gitleaks` green. A leaked secret is rotated, not just deleted. No
+  detailed error/stack traces to the client in prod.
