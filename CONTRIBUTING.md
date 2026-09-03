@@ -164,13 +164,14 @@ anyway.
 
 ### Generic web checklist
 
-Mirrors the `web-security-review` skill (`~/.claude/skills/`) - run that
-skill before merging anything touching auth or user data. Summary:
+Run the `web-security-review` skill (`~/.claude/skills/`) before merging
+anything touching auth or user data. The skill is the source of truth;
+the list below is a summary to keep in sync with it, not a replacement:
 
 - **Passwords/tokens**: argon2id hashing; reset/verification tokens are
   CSPRNG-generated, single-use, short-lived, and **hashed at rest**.
 - **Authorization**: every mutating route on a user resource checks auth
-  **and** ownership → `403` otherwise, never a silent pass. CRUD scaffolds
+  **and** ownership, returning `403` otherwise, never a silent pass. CRUD scaffolds
   ship with no guards - lock every generated route before merge. Never
   trust a client-supplied role or ID for an authz decision. No IDOR.
 - **Enumeration / brute-force**: login / register / reset return identical
