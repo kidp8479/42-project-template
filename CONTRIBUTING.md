@@ -57,6 +57,15 @@ re-commit. The same checks should run in CI (`.github/workflows/ci.yml`)
 on every push and pull request, alongside a secret scan
 (`.github/workflows/gitleaks.yml`).
 
+## Planning and lessons
+
+- For any non-trivial task (3+ steps, or an architectural choice), agree a
+  plan before touching code (`/plan` or plan mode). If the work goes
+  sideways mid-task, stop and re-plan rather than pushing on.
+- After a course correction, write the lesson down so it isn't repeated: a
+  `feedback` memory for a habit that spans projects, `docs/lessons.md` in
+  this repo for a project-specific one.
+
 ## Review & merge gate
 
 Even working solo:
