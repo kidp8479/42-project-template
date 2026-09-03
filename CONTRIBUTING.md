@@ -86,6 +86,23 @@ data model choice...) as a short ADR under `docs/adr/NNNN-title.md`:
 context / decision / consequences. A commit message or a chat thread is not
 a durable record.
 
+## Diagrams
+
+Architecture and flow diagrams that document the system live in
+`docs/diagrams/`:
+
+- `<name>.excalidraw` is the **source of truth** (editable at
+  excalidraw.com or with the VS Code Excalidraw extension).
+- `<name>.png` is the rendered view.
+- `<name>.py` (optional) regenerates it via the personal
+  `excalidraw-diagrams` skill.
+
+Mirror each diagram in a **Linear document per domain** (e.g. "Auth -
+architecture" in the project, tagged with the domain label): embed the
+PNG, add a short walk-through, link it from that domain's issues. Refresh
+the diagram and the document when the feature that changed the flow
+merges.
+
 ## Code clarity
 
 - Comment the *why*, not the *what*. A comment that restates the identifier
