@@ -13,9 +13,11 @@ cd <new-project-name>
 
 Then, in order:
 
-1. Fill in `CLAUDE.md` (project context, stack, subject constraints -
-   read the subject PDF **and** the marking sheet in full first, they can
-   diverge)
+1. `cp CLAUDE.md.example CLAUDE.md` and fill it in (project context,
+   stack, subject constraints - read the subject PDF **and** the marking
+   sheet in full first, they can diverge). `CLAUDE.md` is gitignored by
+   default; `git add -f CLAUDE.md` if the project should carry it to a
+   fresh clone.
 2. Replace `<PREFIX>` in `CONTRIBUTING.md` with the project's Linear team
    prefix
 3. Fill in the `Makefile` TODOs once the actual backend/frontend
@@ -43,4 +45,5 @@ Then, in order:
 - `.github/dependabot.yml` - weekly dependency updates
 - `.vscode/settings.json` + `extensions.json` - shared editor config
 - `CONTRIBUTING.md` - commit/branch conventions, security baseline
-- `CLAUDE.md` - skeleton for project-specific context
+- `CLAUDE.md.example` - skeleton for project-specific context; copy to
+  `CLAUDE.md` (gitignored by default)
