@@ -45,6 +45,11 @@ coverage/
 .temp/
 .tmp/
 
+# Agent working notes: kept local by default. Copy CLAUDE.md.example to
+# CLAUDE.md and fill it in. Track it explicitly (git add -f CLAUDE.md) if
+# the project wants it to travel with the clone.
+CLAUDE.md
+
 # Runtime data
 pids
 *.pid

@@ -1,9 +1,14 @@
 # <PROJECT NAME> - 42 post-tronc-commun
 
-<!-- Fill in as you scope the project. See Hypertube's CLAUDE.md for a
-     worked example, and ~/42/WIP/CLAUDE.md for conventions shared across
-     all projects (language, commit format, workflow, engineering
-     standards).
+<!-- Copy this file to CLAUDE.md and fill it in. CLAUDE.md is gitignored by
+     default (agent working notes stay local). If the project should carry
+     its context to a fresh clone or another machine, track it explicitly
+     with `git add -f CLAUDE.md` and inline the shared conventions instead
+     of pointing at ~/ paths.
+
+     See Hypertube's CLAUDE.md for a worked example, and ~/42/WIP/CLAUDE.md
+     for conventions shared across all projects (language, commit format,
+     workflow, engineering standards).
 
      This file holds ONLY subject-specific context: stack, eliminatory
      constraints, imposed structure, open questions. Project-agnostic
