@@ -1,47 +1,75 @@
 # <PROJECT NAME> - 42 post-tronc-commun
 
-<!-- Copy this file to CLAUDE.md and fill it in. CLAUDE.md is gitignored by
-     default (agent working notes stay local). If the project should carry
-     its context to a fresh clone or another machine, track it explicitly
-     with `git add -f CLAUDE.md` and inline the shared conventions instead
-     of pointing at ~/ paths.
+<!-- Copy this file to CLAUDE.md and fill it in.
 
-     See Hypertube's CLAUDE.md for a worked example, and ~/42/WIP/CLAUDE.md
-     for conventions shared across all projects (language, commit format,
-     workflow, engineering standards).
+     CLAUDE.md is gitignored by default (agent working notes stay
+     local). Once the project is underway, track it deliberately with
+     `git add -f CLAUDE.md` if it needs to survive a `git clone` on
+     another machine (home / school) - see .claude/standards/school-42.md
+     "Portability" for why that is safe to do.
+
+     Right before the final defense, both CLAUDE.md and .claude/ get
+     removed from the branch that is evaluated - see
+     .claude/standards/school-42.md "Defense preparation". They are
+     working tooling, not a deliverable.
+
+     See Hypertube's CLAUDE.md for a worked example.
 
      This file holds ONLY subject-specific context: stack, eliminatory
      constraints, imposed structure, open questions. Project-agnostic
-     rules (review gate, ADRs, code clarity, generic web security) are in
-     ~/42/WIP/CLAUDE.md and CONTRIBUTING.md - don't duplicate them here. -->
+     engineering practice is in .claude/standards/engineering.md; the 42
+     checklist to instantiate below is in .claude/standards/school-42.md.
+     Don't duplicate either here - reference them. -->
 
 ## Context
 
-42 slug: `<slug>`. XP: `<value>`. Category: `<category>`.
+- 42 slug `<slug>`, `<XP>` XP, category `<category>`.
+- RNCP contribution: `<Titre / Option / sub-category>`, thresholds to
+  re-confirm on meta.intra.42.fr.
+- Subject PDF: `<path>` (version `<X>`, dated - re-confirm exact rules on
+  the intra before the final defense; this file is a working summary).
+- Why this project / relevant student context: `<...>`
 
-Subject: `pdf/<subject-file>.pdf` in the veille folder
-(`~/42/veille-42-projets/`). Re-read the original PDF when in doubt - any
-summary here isn't exhaustive.
+## Stack
 
-## Decided stack
+- Decided: `<...>` (each with an ADR under `docs/adr/`)
+- Not frozen yet: `<...>`
 
-- Backend: `<...>`
-- Frontend: `<...>`
-- Anything else: `<...>`
+## Eliminatory constraints (0 if violated)
 
-## Subject constraints (never violate - eliminatory if broken)
+<!-- Copied verbatim from the subject AND the marking sheet, both read in
+     full. Where they diverge, the stricter applies. See
+     .claude/standards/school-42.md for the common web list. -->
 
-<!-- Copy the eliminatory rules from the subject + marking sheet here.
-     Read BOTH documents in full before filling this in - they can
-     diverge, and where they do, apply the stricter one. -->
+- `<...>`
 
-## Not yet decided
+## 42 process checklist
 
-<!-- Open questions to resolve as work starts. -->
+<!-- From .claude/standards/school-42.md, instantiated. -->
+
+- Repo visibility: `<public / private>`
+- Login in repo name: `<yes / no>`
+- Imposed directory structure: `<describe / n-a>`
+- Evaluation runs on: `<the evaluated group's machine / other>`
+- Solo or team: `<impact on VM and repo naming>`
+- Seeded test accounts: `<account>` / `<where the password lives>`
+
+## Engineering standards
+
+Project-agnostic standards are in `.claude/standards/engineering.md` and
+apply unchanged. Below: only project-specific deviations or additions
+(e.g. a stricter tenant-isolation rule, a framework-specific guard
+convention).
+
+- `<...>`
+
+## Not yet decided / to settle at session start
+
+- `<...>`
 
 ## Don't forget
 
-- The subject is dated - always confirm exact rules on the intra before
-  the final defense, this file is a working summary only.
-- Check meta.intra.42.fr for RNCP certification requirements if relevant,
-  before considering the project "banked" for that purpose.
+- Re-confirm the exact subject rules on the intra before the final
+  defense.
+- Check meta.intra.42.fr for the RNCP thresholds before treating this
+  project as "acquired" for its sub-category.
