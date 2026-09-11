@@ -1,6 +1,6 @@
 ---
 name: pr-review
-description: Full PR review ritual for a 42 web project - check out the branch, verify a recent rebase did not break it, run /code-review, cross-check against Copilot and existing PR comments, verify every finding for real, triage worth-fixing vs informational, then draft and post the review comment. Use when the user says "review the branch", "regarde la PR", "on review la PR de X", or names a PR / branch in review.
+description: Full PR review ritual - check out the branch, verify a recent rebase did not break it, run /code-review, cross-check against Copilot and existing PR comments, verify every finding for real, triage worth-fixing vs informational, then draft and post the review comment. Use when the user says "review the branch", "regarde la PR", "on review la PR de X", or names a PR / branch in review.
 ---
 
 # pr-review
@@ -8,13 +8,13 @@ description: Full PR review ritual for a 42 web project - check out the branch, 
 The `CLAUDE.md` rule is "re-read the diff before merging, never push
 straight to `main`". This skill is the *how*: the full ritual, the one
 mined from ~90 past sessions on transcendence, generalised so it also
-fits a solo PR on Hypertube.
+fits a solo PR on any project.
 
 ## 0. Scope
 
 - **Team PR** (someone else's branch): full flow, ends with a review
   comment addressed to the author.
-- **Solo PR** (your own branch, Hypertube): same flow, the "comment"
+- **Solo PR** (your own branch): same flow, the "comment"
   becomes a self-review note on the PR and a go / no-go for merge.
 
 ## 1. Get on the branch
@@ -105,11 +105,11 @@ for fewer lines.
 Then split all confirmed findings (yours + the survivors from step 6):
 
 - **Worth fixing before merge**: correctness bugs, security (any
-  ownership / auth gap is eliminatory on a 42 web subject), console
-  errors / warnings (eliminatory during the defense), the delete-oriented
-  findings that are cheap now.
+  ownership / auth gap), console errors / warnings, the delete-oriented
+  findings that are cheap now. On a 42 subject, check `CLAUDE.md` and
+  `.claude/standards/school-42.md` for which of these are eliminatory.
 - **Informational, do not touch now**: larger refactors and duplication,
-  especially close to a defense or when the file is shared with other
+  especially close to a deadline or when the file is shared with other
   in-flight work. State it as context, request no action.
 
 ## 8. Draft the comment

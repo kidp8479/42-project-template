@@ -59,7 +59,7 @@ looks simple.
 - Do not delete a failing test to make the suite green - that is a
   separate problem, surface it.
 - Security / auth / ownership tests are not "implementation detail" on a
-  42 web subject - keep them.
+  project with real users - keep them.
 
 ## Why a skill
 

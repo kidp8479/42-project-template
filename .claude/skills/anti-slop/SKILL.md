@@ -1,6 +1,6 @@
 ---
 name: anti-slop
-description: Constraints to apply BEFORE writing or editing code on a 42 web project, so the lint gate and PR review find less to reject. The "teach" half of agent slop control - the ESLint ratchet (notes/eslint-hardening.md) is the "checker" half. Use when about to write a new module, a new endpoint, a service, or a non-trivial refactor.
+description: Constraints to apply BEFORE writing or editing code, so the lint gate and PR review find less to reject. The "teach" half of agent slop control - the ESLint ratchet (notes/eslint-hardening.md) is the "checker" half. Use when about to write a new module, a new endpoint, a service, or a non-trivial refactor.
 ---
 
 # anti-slop

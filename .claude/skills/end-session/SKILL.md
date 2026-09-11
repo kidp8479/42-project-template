@@ -1,6 +1,6 @@
 ---
 name: end-session
-description: Close a 42 project work session - summarize what moved, post the recap to the project's Slack daily-log channel, and update the Linear Session Handoff doc so the next machine can resume. Use when the user says "on s'arrete la", "log la session", "fin de session", "fais le recap".
+description: Close a project work session - summarize what moved, post the recap to the project's Slack daily-log channel, and update the Linear Session Handoff doc so the next machine can resume. Use when the user says "on s'arrete la", "log la session", "fin de session", "fais le recap".
 ---
 
 # end-session

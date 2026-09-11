@@ -1,6 +1,6 @@
 ---
 name: resume-session
-description: Reconstruct the state of a 42 project at the start of a work session from the Slack daily-log, the Linear Session Handoff doc, and git, then list the concrete next steps. Use when the user says "on reprend", "nouvelle session", "day N", "lis les docs de session", "mets-toi a jour".
+description: Reconstruct the state of a project at the start of a work session from the Slack daily-log, the Linear Session Handoff doc, and git, then list the concrete next steps. Use when the user says "on reprend", "nouvelle session", "day N", "lis les docs de session", "mets-toi a jour".
 ---
 
 # resume-session
@@ -12,7 +12,7 @@ projects). This skill reads them back.
 
 ## Steps
 
-1. **Identify the project** from the cwd (`Hypertube/`, etc.) and its
+1. **Identify the project** from the cwd (`Hypertube/`, `ravito/`, etc.) and its
    `CLAUDE.md`.
 2. **Slack**: read the last few posts in `#<project>-daily-log`
    (slack MCP / `slack:summarize-channel`).
