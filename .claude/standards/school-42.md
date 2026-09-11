@@ -87,7 +87,7 @@ unchanged. This file is only the 42 layer.
   (`git add -f CLAUDE.md`) when the project needs it to survive a
   `git clone` on another machine (home Docker / school Podman) - this is
   the normal case once a project is underway, not the exception.
-- `.claude/` (vendored from `lab-agentique` via the template) is tracked
+- `.claude/` (vendored from `agentic-lab` via the template) is tracked
   normally, no gitignore involved - it is tooling, not notes, same
   category as `.vscode/` or `.githooks/`.
 - Both are removed together right before the defense per the step above,

@@ -89,9 +89,9 @@ repos. After the branch is reviewed, route what generalised:
 | Finding | Goes to |
 |---|---|
 | A `.gitignore` line, a CI step, a `dependabot` group, a `Makefile` target, a pre-commit check that any project would want | PR on `git@github.com:kidp8479/42-project-template.git` |
-| A new *rule* (stated as a standard, not a snippet) | `lab-agentique/standards/engineering.md` (promoted from there into every project's vendored copy) |
+| A new *rule* (stated as a standard, not a snippet) | `agentic-lab/standards/engineering.md` (promoted from there into every project's vendored copy) |
 | A lint rule / complexity limit that proved its worth | `notes/eslint-hardening.md` (ratchet) and the `anti-slop` budget table |
-| An agentic primitive (a hook, a subagent, a skill tweak) | its home in `lab-agentique` |
+| An agentic primitive (a hook, a subagent, a skill tweak) | its home in `agentic-lab` |
 
 Record the promotion in the rollout tracker row so the next repo starts
 from the improved template.

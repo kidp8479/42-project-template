@@ -54,7 +54,7 @@ does not depend on remembering it under end-of-project pressure.
 - `CONTRIBUTING.md` - commit/branch conventions, security baseline
 - `CLAUDE.md.example` - skeleton for project-specific context; copy to
   `CLAUDE.md` (gitignored by default)
-- `.claude/` - vendored from `lab-agentique`: `standards/engineering.md`
+- `.claude/` - vendored from `agentic-lab`: `standards/engineering.md`
   (project-agnostic practice) and `standards/school-42.md` (the 42
   checklist `CLAUDE.md.example` instantiates), workflow skills
   (`pr-review`, `standards-audit`, `end-session`, `resume-session`,
