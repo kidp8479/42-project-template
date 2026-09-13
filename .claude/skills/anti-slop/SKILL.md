@@ -18,6 +18,9 @@ human author but a good automatic net against an agent that over-produces.
 1. **Reuse before you write.** Grep for an existing function / hook /
    util that already does this. Agents re-implement `formatDate`,
    `isUuid`, an axios wrapper, a guard, that already exist. Import it.
+   Grep only catches identical names - `slopo` (`docs/slopo-setup.md`)
+   catches the same logic reimplemented under a different name, run
+   periodically rather than in this loop.
 2. **No speculative abstraction.** No interface, factory, generic, config
    object, or "…Manager" / "…Service" wrapper unless there are two real
    call sites now. One caller = inline it.
