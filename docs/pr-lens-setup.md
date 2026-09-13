@@ -33,21 +33,40 @@ source ~/.zshrc
 
 ## Running it (per PR, on demand)
 
+**Just the diagrams, to look at locally:**
+
 ```sh
 cd <repo>
 npx @coldtea/pr-lens-cli analyze --base main --head <branch> --pr <n> --model gemini-3.6-flash
 npx @coldtea/pr-lens-cli render .pr-lens/graph.json
 ```
 
+Output: SVGs (light + dark) under `.pr-lens/` - open directly in a
+browser or an editor, no hosting needed. Nothing is posted anywhere;
+`.pr-lens/` should be gitignored, this is a local viewing aid, not a
+repo artifact.
+
 `gemini-3.7-flash` (the CLI default) 503'd repeatedly (high demand) and
 `gemini-2.5-flash` 404'd (retired) when this was tried as a GitHub
 Action - pin `--model gemini-3.6-flash` explicitly rather than trusting
 the default.
 
-Output: SVGs (light + dark) under `.pr-lens/` - open directly in a
-browser or an editor, no hosting needed. Nothing is posted anywhere;
-`.pr-lens/` should be gitignored, this is a local viewing aid, not a
-repo artifact.
+**Posted as a real PR comment, one command:**
+
+```sh
+scripts/pr-lens-comment.sh <pr-number> [base] [head]
+```
+
+Runs `analyze` + `render`, then `comment` (which composes the title,
+description, stats, and per-diagram write-up - none of that is
+reimplemented here), uploads each SVG via
+`uploads.github.com/user-attachments/assets` (same mechanism as
+dragging an image into a comment box - undocumented by GitHub but
+confirmed working on a private repo, unlike the Action's
+`raw.githubusercontent.com` links), swaps the placeholder image URLs
+for the real ones, and posts with `gh pr comment`. Validated end to end
+on Hypertube PR #40 - same rich output the removed GitHub Action
+produced, minus the broken images.
 
 ## Where this fits
 
