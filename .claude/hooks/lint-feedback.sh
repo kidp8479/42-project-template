@@ -2,9 +2,9 @@
 # PostToolUse hook (matcher "Write|Edit"): EXPERIMENTAL.
 #
 # Goal: close the slop-control loop IN SESSION. The ESLint ratchet
-# (notes/eslint-hardening.md) runs at commit / CI time; this runs the
-# same linter on the single file the agent just wrote, so it fixes the
-# warning now instead of at commit.
+# (standards/engineering.md > Slop control) runs at commit / CI time;
+# this runs the same linter on the single file the agent just wrote, so
+# it fixes the warning now instead of at commit.
 #
 # PostToolUse runs AFTER the write, so this flags, it does not block.
 #   exit 0 -> nothing
@@ -15,12 +15,12 @@
 #
 # Only findings on lines the agent actually touched (vs HEAD) are
 # reported. First version reported every eslint finding in the file,
-# which contradicts the ratchet design (notes/eslint-hardening.md
-# tolerates a nonzero warning baseline): on a real project this fired on
-# every pre-existing warning in the file on every edit, as if the agent
-# had just caused it. Filtering to changed lines fixes that and is more
-# robust than tracking a running warning count, which breaks across
-# multiple edits in one session.
+# which contradicts the ratchet design (a nonzero warning baseline is
+# tolerated): on a real project this fired on every pre-existing
+# warning in the file on every
+# edit, as if the agent had just caused it. Filtering to changed lines
+# fixes that and is more robust than tracking a running warning count,
+# which breaks across multiple edits in one session.
 
 set -eu
 
@@ -46,18 +46,23 @@ done
 [ -n "$pkg_dir" ] || exit 0
 
 # lint just this file, quiet (errors only would hide the warn-level slop
-# rules, so keep warnings), cap runtime. --format json: ESLint 10 dropped
-# the "unix" formatter from core (needs the separate
-# eslint-formatter-unix package, not installed here) - a prior version of
-# this hook asked for it anyway and silently found nothing, every time.
-# json ships with ESLint itself, so parse that with jq instead.
-out=$(cd "$pkg_dir" && timeout 30 ./node_modules/.bin/eslint --no-error-on-unmatched-pattern --format json "$path" 2>/dev/null || true)
+# rules, so keep warnings), cap runtime. --no-warn-ignored: editing an
+# ESLint-ignored file (eslint.config.mjs, dist/...) otherwise yields a
+# "File ignored" warning that this hook would report as an unfixable
+# finding. --format json: ESLint 10 dropped the "unix" formatter from
+# core (needs the separate eslint-formatter-unix package, not installed
+# here) - a prior version of this hook asked for it anyway and silently
+# found nothing, every time. json ships with ESLint itself, parsed with jq.
+out=$(cd "$pkg_dir" && timeout 30 ./node_modules/.bin/eslint --no-error-on-unmatched-pattern --no-warn-ignored --format json "$path" 2>/dev/null || true)
 
+# select(.ruleId != null): drop messages with no rule (parse errors,
+# ignore notices) - not slop the model can act on.
 findings=$(printf '%s' "$out" | jq -r --arg path "$path" '
 	.[0].messages[]? |
+	select(.ruleId != null) |
 	"\($path):\(.line):\(.column): " +
 	(if .severity == 2 then "error" else "warning" end) +
-	"  \(.message)  [\(.ruleId // "")]"
+	"  \(.message)  [\(.ruleId)]"
 ' 2>/dev/null || true)
 [ -n "$findings" ] || exit 0
 
@@ -89,5 +94,5 @@ fi
 
 echo "lint-feedback.sh: eslint findings on lines you just touched in $path:" >&2
 printf '%s\n' "$findings" >&2
-echo "Fix these now (see skills/anti-slop). Do not disable the rule." >&2
+echo "Fix these now (see .claude/skills/anti-slop). Do not disable the rule." >&2
 exit 2
