@@ -58,7 +58,7 @@ does not depend on remembering it under end-of-project pressure.
   (project-agnostic practice) and `standards/school-42.md` (the 42
   checklist `CLAUDE.md.example` instantiates), workflow skills
   (`pr-review`, `standards-audit`, `end-session`, `resume-session`,
-  `test-audit`, `anti-slop`), subagents (`browser-e2e`, `diff-auditor`),
+  `test-audit`, `anti-slop`, `excalidraw-diagrams`), subagents (`browser-e2e`, `diff-auditor`),
   and hooks (`settings.json` wires them: `guard-bash` / `guard-files`
   block dangerous commands and edits, `no-french-comments` /
   `lint-feedback` flag issues right after a write). Removed before the
