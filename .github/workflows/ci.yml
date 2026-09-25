@@ -1,6 +1,8 @@
 # TODO (per project): this assumes a Node/npm backend+frontend split like
 # Hypertube. Adjust working-directory, node-version, and the run steps to
 # match the actual project (or delete a job if there's only one package).
+# The jobs are skipped in the template repo itself (no backend/ or frontend/
+# there); delete the `if:` lines once the project has real packages.
 name: CI
 
 on:
@@ -10,6 +12,7 @@ on:
 
 jobs:
   backend:
+    if: github.repository != 'kidp8479/42-project-template'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -29,6 +32,7 @@ jobs:
       - run: npm run build
 
   frontend:
+    if: github.repository != 'kidp8479/42-project-template'
     runs-on: ubuntu-latest
     defaults:
       run:
